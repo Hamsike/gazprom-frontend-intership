@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+import { useState } from "react";
 import { useAppStore } from "../../store";
 import { TextField } from '@consta/uikit/TextField';            
 import { Button } from '@consta/uikit/Button';                  

@@ -1,73 +1,56 @@
-# React + TypeScript + Vite
+# GoREST Users & Posts Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Приложение для управления пользователями и постами с использованием публичного API [GoREST](https://gorest.co.in/).
 
-Currently, two official plugins are available:
+## 📋 О проекте
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Dashboard для просмотра и управления пользователями и постами с авторизацией по токену. Приложение позволяет:
+- Авторизоваться с использованием Access Token
+- Просматривать список пользователей с пагинацией
+- Просматривать список постов
+- Детальный просмотр информации о пользователе/посте
 
-## React Compiler
+## 🚀 Технологии
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Frontend
+- **React 19** - библиотека для построения UI
+- **TypeScript** - типизация кода
+- **Zustand** - управление состоянием приложения
+- **Consta UI Kit** - компоненты интерфейса
 
-## Expanding the ESLint configuration
+### Инструменты
+- **Vite** - сборка проекта
+- **ESLint** - линтинг кода
+- **CSS Modules** - стилизация компонентов
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### API
+- **GoREST API** - тестовое REST API для разработчиков
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🛠 Установка и запуск
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Инструкция по запуску
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. **Клонировать репозиторий**
+```bash
+git clone https://github.com/Hamsike/gazprom-frontend-intership.git
+cd gazprom-frontend-intership
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+2. **Установить зависимости**
+```bash
+npm install
 ```
+
+3. **Получить Access Token**
+
+1. Перейдите на [GoREST](https://gorest.co.in/) 🚀 и авторизуйтесь
+2. В правом верхнем углу нажмите на **ваше имя** → **Account**
+3. Скопируйте ваш **Access Token**
+
+4. **Запустить приложение**
+```bash
+npm run dev
+```
+
+5. **Открыть в браузере**
+http://localhost:5173/gazprom-frontend-intership/
