@@ -1,4 +1,3 @@
-// store.ts
 import { create } from "zustand";
 import { createAuthSlice, type AuthSlice } from "./slices/authSlice";
 import { createViewPageSlice, type ViewPageSlice } from "./slices/viewPageSlice";

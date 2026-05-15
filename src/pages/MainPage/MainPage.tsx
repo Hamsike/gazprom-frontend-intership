@@ -1,4 +1,3 @@
-// components/MainPage.tsx
 import { useAppStore } from "@/store";
 import { UsersTable } from "@/components/UsersTable/UsersTable";
 import { PostsTable } from "@/components/PostsTable/PostsTable";
