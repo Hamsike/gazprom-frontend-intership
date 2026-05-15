@@ -17,17 +17,17 @@ interface TableRow {
 
 export const PostsTable = ({ onPostClick }: PostsTableProps) => {
   const [posts, setPosts] = useState<Post[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [totalPages, setTotalPages] = useState(1);
   const [perPage, setPerPage] = useState(10);
+  const [error, setError] = useState("")
   
   const { currentPage, goToPage, nextPage, prevPage } = usePagination({
     totalPages,
     initialPage: 1
   });
 
-  useEffect(() => {
-    const fetchPosts = async () => {
+  const fetchPosts = async () => {
       setLoading(true);
       try {
         const response = await apiGorest.getPosts(currentPage, perPage);
@@ -35,11 +35,13 @@ export const PostsTable = ({ onPostClick }: PostsTableProps) => {
         const total = response.headers['x-pagination-total'] || 0;
         setTotalPages(Math.ceil(Number(total) / perPage));
       } catch (error) {
-        console.error('Failed to fetch posts:', error);
+        setError('Не удалось загрузить посты. Пожалуйста, попробуйте позже.');
       } finally {
         setLoading(false);
       }
     };
+
+  useEffect(() => {
     fetchPosts();
   }, [currentPage, perPage]);
 
@@ -71,6 +73,30 @@ export const PostsTable = ({ onPostClick }: PostsTableProps) => {
       <div className={styles.loader}>Загрузка постов...</div>
       </div>;
   }
+
+  if (error) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.error}>
+          <p>{error}</p>
+          <button 
+            onClick={fetchPosts} 
+            className={styles.retryButton}
+          >
+            Попробовать снова
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (!loading && !error && posts.length === 0) {
+  return (
+    <div className={styles.container}>
+      <div className={styles.empty}>Посты не найдены</div>
+    </div>
+  );
+}
 
   return (
     <div className={styles.container}>

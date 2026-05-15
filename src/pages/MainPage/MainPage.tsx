@@ -2,8 +2,8 @@
 import { useAppStore } from "@/store";
 import { UsersTable } from "@/components/UsersTable/UsersTable";
 import { PostsTable } from "@/components/PostsTable/PostsTable";
-import { UserCard } from "@/components/UserCard/UserCard";
-import { PostCard } from "@/components/PostCard/PostCard";
+import { UserCard } from "@/pages/UserCard/UserCard";
+import { PostCard } from "@/pages/PostCard/PostCard";
 import styles from './MainPage.module.css';
 
 export const MainPage: React.FC = () => {

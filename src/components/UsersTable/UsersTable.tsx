@@ -19,7 +19,8 @@ interface TableRow {
 
 export const UsersTable = ({ onUserClick }: UsersTableProps) => {
   const [users, setUsers] = useState<User[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('')
   const [totalPages, setTotalPages] = useState(1);
   const [perPage, setPerPage] = useState(10);
   
@@ -28,9 +29,9 @@ export const UsersTable = ({ onUserClick }: UsersTableProps) => {
     initialPage: 1
   });
 
-  useEffect(() => {
-    const fetchUsers = async () => {
+  const fetchUsers = async () => {
       setLoading(true);
+      setError("")
       try {
         const response = await apiGorest.getUsers(currentPage, perPage);
         setUsers(response.data);
@@ -38,10 +39,13 @@ export const UsersTable = ({ onUserClick }: UsersTableProps) => {
         setTotalPages(Math.ceil(Number(total) / perPage));
       } catch (error) {
         console.error('Failed to fetch users:', error);
+        setError("Не удалось загрузить пользователей. Пожалуйста, попробуйте позже.")
       } finally {
         setLoading(false);
       }
     };
+
+  useEffect(() => {
     fetchUsers();
   }, [currentPage, perPage]);
 
@@ -72,14 +76,38 @@ export const UsersTable = ({ onUserClick }: UsersTableProps) => {
   };
 
   if (loading) {
-    return <div className={styles.container}>
+    return (<div className={styles.container}>
       <div className={styles.loader}>Загрузка пользователей...</div>
-    </div>;
+    </div>);
   }
+
+  if (error) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.error}>
+          <p>{error}</p>
+          <button 
+            onClick={fetchUsers} 
+            className={styles.retryButton}
+          >
+            Попробовать снова
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (!loading && !error && users.length === 0) {
+  return (
+    <div className={styles.container}>
+      <div className={styles.empty}>Пользователи не найдены</div>
+    </div>
+  );
+}
 
   return (
     <div className={styles.container}>
-      <Table
+         <Table
         rows={tableData}
         columns={columns}
         onRowClick={handleRowClick}

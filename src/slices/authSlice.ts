@@ -4,7 +4,8 @@ interface AuthState {
 }
 
  interface AuthActions {
-  login: (token: string) => void;
+  login: () => void;
+  setToken: (token: string) => void
   logout: () => void;
 }
 
@@ -17,7 +18,8 @@ const initialState: AuthState = {
 
 export const createAuthSlice = (set: any): AuthSlice => ({
   ...initialState,
-  login: (token: string) => set({ token, isAuth: true }),
+  login: () => set((state: AuthState) => ({ ...state, isAuth: true })),
+  setToken: (token: string) => set((state: AuthState) => ({...state, token})),
   logout: () => set(initialState),
 });
 
